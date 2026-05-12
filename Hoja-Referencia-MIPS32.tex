@@ -1,0 +1,81 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath}
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{10pt}{2pt}
+
+\title{\textbf{Hoja de Referencia: MIPS32}}
+\author{Grisel Sanchez}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Registros Principales}
+
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabularx}{\textwidth}{@{} l l X @{}}
+        \toprule
+        \textbf{Registro} & \textbf{Número} & \textbf{Descripción} \\
+        \midrule
+        \$zero & 0 & Constante 0 \\
+        \$v0-\$v1 & 2-3 & Retorno de funciones / Resultados \\
+        \$a0-\$a3 & 4-7 & Argumentos de funciones \\
+        \$t0-\$t7 & 8-15 & Temporales (No preservados a través de llamadas) \\
+        \$s0-\$s7 & 16-23 & Temporales guardados (Preservados) \\
+        \$sp & 29 & Puntero de pila (Stack Pointer) \\
+        \$ra & 31 & Dirección de retorno (Return Address) \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section*{Repertorio de Instrucciones Esenciales}
+
+\begin{table}[h!]
+    \centering
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabularx}{\textwidth}{@{} l l l X @{}}
+        \toprule
+        \textbf{Categoría} & \textbf{Instrucción} & \textbf{Sintaxis de ejemplo} & \textbf{Significado} \\
+        \midrule
+        \textbf{Aritméticas} 
+        & add & add \$t0, \$s1, \$s2 & \$t0 = \$s1 + \$s2 \\
+        & sub & sub \$t0, \$s1, \$s2 & \$t0 = \$s1 - \$s2 \\
+        & addi & addi \$t0, \$s1, 10 & \$t0 = \$s1 + 10 \\
+        \midrule
+        \textbf{Lógicas / Despl.}
+        & sll & sll \$t0, \$s1, 2 & Desplazamiento Izq: \$t0 = \$s1 $\ll$ 2 \\
+        & srl & srl \$t0, \$s1, 2 & Desplazamiento Der: \$t0 = \$s1 $\gg$ 2 \\
+        \midrule
+        \textbf{Comparación}
+        & slt & slt \$t0, \$s1, \$s2 & \$t0 = (\$s1 < \$s2) ? 1 : 0 \\
+        & slti & slti \$t0, \$s1, 10 & \$t0 = (\$s1 < 10) ? 1 : 0 \\
+        \midrule
+        \textbf{Transferencia}
+        & lw & lw \$t0, 4(\$s1) & Cargar palabra: \$t0 = Mem[\$s1 + 4] \\
+        & sw & sw \$t0, 4(\$s1) & Guardar palabra: Mem[\$s1 + 4] = \$t0 \\
+        & li & li \$t0, 50 & Cargar inmediato: \$t0 = 50 \\
+        & move & move \$t0, \$s1 & Mover registro: \$t0 = \$s1 \\
+        \midrule
+        \textbf{Saltos Cond.}
+        & beq & beq \$s1, \$s2, L & Si (\$s1 == \$s2) saltar a la etiqueta L \\
+        & bne & bne \$s1, \$s2, L & Si (\$s1 != \$s2) saltar a la etiqueta L \\
+        \midrule
+        \textbf{Saltos Incond.}
+        & j & j Target & Salto directo a la dirección de Target \\
+        & jal & jal Function & Salto a función (guarda dir. en \$ra) \\
+        & jr & jr \$ra & Salto a la dirección contenida en registro \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\end{document}
